@@ -101,7 +101,7 @@ function Registration() {
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="input-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">User Name</label>
               <input
                 type="text"
                 id="username"
