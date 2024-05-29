@@ -24,7 +24,7 @@ function Login() {
       console.log("Submitting credentials:", credentials);
 
       const response = await axios.post(
-        "http://localhost:3000/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         { username: credentials.username, password: credentials.password } // Sending credentials in the expected format
       );
       console.log("Response data:", response.data);

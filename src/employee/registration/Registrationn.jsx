@@ -45,7 +45,7 @@ function Registration() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/register",
+        `${process.env.REACT_APP_API_URL}/register`,
         data,
         {
           headers: {
