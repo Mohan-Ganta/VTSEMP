@@ -8,6 +8,7 @@ import EmpDashboard from "./employee/dashboard/EmpDashboard";
 import LeavePage from "./employee/leaves/Leaves";
 import Homepage from "./employee/homepage/Homepagee";
 import Task from "./employee/task/Task";
+import Reg from './employee/registration/Signup'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Navigate replace to="login" />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Registration />} />
+          <Route exact path="/Reg" element={<Reg />} />
 
           <Route path="dashboard" element={<EmpDashboard />}>
             <Route path="attendance" element={<Attendance />} />

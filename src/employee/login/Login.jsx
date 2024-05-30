@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Login.css"; // Advanced CSS file
-import { Navigate } from "react-router-dom";
 
 function Login() {
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,15 +26,18 @@ function Login() {
       console.log("Submitting credentials:", credentials);
 
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/login`,
-        { username: credentials.username, password: credentials.password } // Sending credentials in the expected format
+        `${process.env.API_URL}/login`,
+        { email: credentials.email, password: credentials.password }
       );
       console.log("Response data:", response.data);
 
-      Navigate("/dashboard/homepage");
+      // Store the token in local storage
+      localStorage.setItem('token', response.data.token);
+
+      navigate("/dashboard/homepage");
     } catch (error) {
       console.error("There was an error logging in!", error);
-      alert("Login failed");
+      setError("Login failed. Please check your email and password.");
     }
   };
 
@@ -42,12 +47,12 @@ function Login() {
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="username">Username</label>{" "}
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              name="username"
-              value={credentials.username}
+              type="email"
+              id="email"
+              name="email"
+              value={credentials.email}
               onChange={handleChange}
               required
             />
@@ -63,6 +68,7 @@ function Login() {
               required
             />
           </div>
+          {error && <div className="error-message">{error}</div>}
           <button type="submit" className="login-button">
             Login
           </button>
