@@ -18,6 +18,7 @@ import Task from "./employee/task/Task";
 // admin
 import AttendanceAd from "./admin/attendance/Attendancee";
 import HomepageAd from "./admin/homepage/Homepagee";
+import TaskAd from "./admin/task/Task";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -25,6 +26,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route index element={<Navigate replace to="login" />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
 
@@ -46,6 +48,7 @@ function App() {
           <Route index element={<Navigate replace to="homepage" />} />
           <Route path="attendance" element={<AttendanceAd />} />
           <Route path="homepage" element={<HomepageAd />} />
+          <Route path="task" element={<TaskAd />} />
         </Route>
       </Routes>
     </Router>
