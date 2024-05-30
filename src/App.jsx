@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -8,12 +7,17 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Dashboard from "./components/Dashboard";
+
+// employee
+import EmpDashboard from "./employee/dashboard/EmpDashboard";
 import Attendance from "./employee/attendance/Attendance";
 import Homepage from "./employee/homepage/Homepagee";
 import Leaves from "./employee/leaves/Leaves";
 import Task from "./employee/task/Task";
 
+// admin
+import AttendanceAd from "./admin/attendance/Attendancee";
+import HomepageAd from "./admin/homepage/Homepagee";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -23,19 +27,25 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/login" />} />
-
-        <Route path="/att" element={<Attendance />} />
 
         <Route
           path="employee"
-          element={token ? <Dashboard /> : <Navigate to="/login" />}
+          element={token ? <EmpDashboard /> : <Navigate to="/login" />}
         >
           <Route index element={<Navigate replace to="homepage" />} />
           <Route path="homepage" element={<Homepage />} />
           <Route path="leaves" element={<Attendance />} />
           <Route path="task" element={<Task />} />
           <Route path="leave" element={<Leaves />} />
+        </Route>
+
+        <Route
+          path="admin"
+          element={token ? <EmpDashboard /> : <Navigate to="/login" />}
+        >
+          <Route index element={<Navigate replace to="homepage" />} />
+          <Route path="attendance" element={<AttendanceAd />} />
+          <Route path="homepage" element={<HomepageAd />} />
         </Route>
       </Routes>
     </Router>
