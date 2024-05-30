@@ -13,7 +13,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://vtsemp.netlify.app/register", {
+      await axios.post("http://localhost:5000/register", {
         username,
         password,
       });
