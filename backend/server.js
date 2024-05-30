@@ -35,6 +35,43 @@ mongoose
 const secret =
   "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxNjk1NTUwOSwiaWF0IjoxNzE2OTU1NTA5fQ.27ULRvW_fhBdaOrgDyjWOlrMwtDeVRe-hcrc6f4JoM4";
 
+// app.post(
+//     "/register",
+//     upload.fields([
+//       { name: "profilePhoto", maxCount: 1 },
+//       { name: "offerLetter", maxCount: 1 },
+//     ]),
+//     async (req, res) => {
+//       const { username, id, email, mobile, dob, doj, designation, password } = req.body;
+  
+//       try {
+//         const existingUser = await User.findOne({
+//           $or: [{ username }, { email }],
+//         });
+//         if (existingUser) {
+//           return res.status(400).json({ error: "User already exists" });
+//         }
+  
+//         const newUser = new User({
+//           username,
+//           employeeId: id,
+//           contactNumber: mobile,
+//           email,
+//           dateOfBirth: new Date(dob),
+//           dateOfJoining: new Date(doj),
+//           designation,
+//           profilePhoto: req.files.profilePhoto ? req.files.profilePhoto[0].path : null,
+//           offerLetter: req.files.offerLetter ? req.files.offerLetter[0].path : null,
+//           password,
+//         });
+  
+//         await newUser.save();
+//         res.status(201).json({ message: "User registered successfully" });
+//       } catch (err) {
+//         res.status(500).json({ error: err.message });
+//       }
+//     }
+//   );
 app.post(
     "/register",
     upload.fields([

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Registration.css"; // Make sure to create a CSS file for styling
+import "./Registration.css"; 
 
 function Registration() {
   const [formData, setFormData] = useState({
