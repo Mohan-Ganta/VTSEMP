@@ -13,7 +13,11 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
+      const response = await axios.post("https://vtsemp.vercel.app/login", {
+=======
       const response = await axios.post("https://vtsemp.netlify.app/login", {
+>>>>>>> a0967efa714a3cd2f444cfcb71e258cd630ad074
         username,
         password,
       });
