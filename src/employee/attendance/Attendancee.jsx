@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import "./Attendance.css";
+import "./Attendance.css";
 
 function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);

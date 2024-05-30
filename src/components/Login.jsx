@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar/Navbar';
 
 function Login({ setToken }) {
   const [username, setUsername] = useState('');
@@ -20,6 +21,9 @@ function Login({ setToken }) {
   };
 
   return (
+    
+    <div>
+      <Navbar/>
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <div>
@@ -32,6 +36,7 @@ function Login({ setToken }) {
       </div>
       <button type="submit">Login</button>
     </form>
+    </div>
   );
 }
 
