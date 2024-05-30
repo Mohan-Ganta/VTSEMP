@@ -24,10 +24,9 @@ body {
   z-index: 1000;
 }
 
-.logo {
-  font-size: 1.8em;
-  font-weight: bold;
-  animation: logoFadeIn 2s ease-in-out;
+.logo > img {
+  height: 60px;
+  width: 60px;
 }
 
 @keyframes logoFadeIn {

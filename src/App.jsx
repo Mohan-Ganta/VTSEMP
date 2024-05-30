@@ -14,11 +14,13 @@ import Attendance from "./employee/attendance/Attendance";
 import Homepage from "./employee/homepage/Homepagee";
 import Leaves from "./employee/leaves/Leaves";
 import Task from "./employee/task/Task";
+import Announcements from "./employee/announcements/Announcements";
 
 // admin
 import AttendanceAd from "./admin/attendance/Attendancee";
 import HomepageAd from "./admin/homepage/Homepagee";
 import TaskAd from "./admin/task/Task";
+import AnnouncementsAd from "./admin/announcements/Announcements";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -36,9 +38,10 @@ function App() {
         >
           <Route index element={<Navigate replace to="homepage" />} />
           <Route path="homepage" element={<Homepage />} />
-          <Route path="leaves" element={<Attendance />} />
+          <Route path="attendance" element={<Attendance />} />
           <Route path="task" element={<Task />} />
           <Route path="leave" element={<Leaves />} />
+          <Route path="announcements" element={<Announcements />} />
         </Route>
 
         <Route
@@ -46,8 +49,10 @@ function App() {
           element={token ? <EmpDashboard /> : <Navigate to="/login" />}
         >
           <Route index element={<Navigate replace to="homepage" />} />
+          <Route path="homepage" element={<Homepage />} />
           <Route path="attendance" element={<AttendanceAd />} />
           <Route path="homepage" element={<HomepageAd />} />
+          <Route path="announcements" element={<AnnouncementsAd />} />
           <Route path="task" element={<TaskAd />} />
         </Route>
       </Routes>
