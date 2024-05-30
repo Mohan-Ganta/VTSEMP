@@ -4,22 +4,15 @@ import "./Attendance.css";
 function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
-  const [sortOptions, setSortOptions] = useState({
-    empId: "",
-    month: "",
-    year: "",
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDateRange({ ...dateRange, [name]: value });
-    setSortOptions({ ...sortOptions, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Date Range:", dateRange);
-    console.log("Sort Options:", sortOptions);
+    console.log(dateRange);
   };
 
   return (
@@ -48,39 +41,6 @@ function Attendance() {
                 value={dateRange.to}
                 onChange={handleInputChange}
                 required
-              />
-            </div>
-            <div className="input-group">
-              <label htmlFor="empId">Employee ID</label>
-              <input
-                type="text"
-                id="empId"
-                name="empId"
-                value={sortOptions.empId}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="input-group">
-              <label htmlFor="month">Month</label>
-              <input
-                type="month"
-                id="month"
-                name="month"
-                value={sortOptions.month}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="input-group">
-              <label htmlFor="year">Year</label>
-              <input
-                type="number"
-                id="year"
-                name="year"
-                value={sortOptions.year}
-                onChange={handleInputChange}
-                placeholder="YYYY"
-                min="2000"
-                max={new Date().getFullYear()}
               />
             </div>
             <button type="submit" className="sort-button">
