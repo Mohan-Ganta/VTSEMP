@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Attendance.css";
+import axios from "axios";
+// import "./Attendance.css";
 
 function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -12,7 +13,18 @@ function Attendance() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(dateRange);
+    fetchAttendanceData();
+  };
+
+  const fetchAttendanceData = () => {
+    axios
+      .get(`http://localhost:5000/attendance/${dateRange.from}/${dateRange.to}`)
+      .then((response) => {
+        setAttendanceData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching attendance data:", error);
+      });
   };
 
   return (
@@ -63,7 +75,7 @@ function Attendance() {
                 <td>{entry.date}</td>
                 <td>{entry.loginTime}</td>
                 <td>{entry.logoutTime}</td>
-                <td>{entry.workingHours}</td>
+                <td>{entry.duration}</td>
               </tr>
             ))}
           </tbody>
