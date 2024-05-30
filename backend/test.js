@@ -89,23 +89,6 @@ app.post('/logout', async (req, res) => {
   }
 });
 
-// Get session info
-app.get('/session/:sessionId', async (req, res) => {
-  const { sessionId } = req.params;
-
-  try {
-    const session = await Session.findById(sessionId).populate('userId', 'username email');
-    if (!session) {
-      return res.status(404).send('Session not found');
-    }
-
-    const duration = session.logoutTime ? (session.logoutTime - session.loginTime) / 1000 : null;
-    res.status(200).json({ session, duration });
-  } catch (error) {
-    res.status(500).send('Error fetching session info');
-  }
-});
-
 // Protected route
 app.get('/dashboard', (req, res) => {
   const token = req.headers['authorization'];
