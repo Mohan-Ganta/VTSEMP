@@ -3,12 +3,15 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Login from "./employee/login/Login";
 import Attendance from "./employee/attendance/Attendancee";
+import Attendancea from "./admin/attendance/Attendance";
 import Registration from "./employee/registration/Registrationn";
 import EmpDashboard from "./employee/dashboard/EmpDashboard";
 import LeavePage from "./employee/leaves/Leaves";
 import Homepage from "./employee/homepage/Homepagee";
 import Task from "./employee/task/Task";
-import Reg from './employee/registration/Signup'
+import EmployeeList from "./admin/employees/Employees";
+import Homepagee from "./employee/homepage/Homepagee";
+import AdminHomepage from "./admin/homepage/Homepagee";
 
 function App() {
   return (
@@ -18,13 +21,21 @@ function App() {
           <Route index element={<Navigate replace to="login" />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Registration />} />
-          <Route exact path="/Reg" element={<Reg />} />
 
-          <Route path="dashboard" element={<EmpDashboard />}>
+          <Route path="employee" element={<EmpDashboard />}>
+            <Route index element={<Navigate replace to="homepage" />} />
+            <Route path="homepage" element={<Homepagee />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="leaves" element={<LeavePage />} />
             <Route path="homepage" element={<Homepage />} />
             <Route path="task" element={<Task />} />
+          </Route>
+
+          <Route path="admin" element={<EmpDashboard />}>
+            <Route index element={<Navigate replace to="homepage" />} />
+            <Route path="homepage" element={<AdminHomepage />} />
+            <Route path="employeeslist" element={<EmployeeList />} />
+            <Route path="attendance" element={<Attendancea />} />
           </Route>
 
           <Route path="*" />
