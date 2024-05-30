@@ -1,0 +1,27 @@
+/* src/pages/AnnouncementsPage.css */
+.announcements-page {
+  padding: 16px;
+}
+
+.announcements-page h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* src/components/AnnouncementCard.css */
+.announcement-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.announcement-card h3 {
+  margin: 0 0 8px;
+}
+
+.announcement-card p {
+  margin: 0;
+}
