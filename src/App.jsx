@@ -15,6 +15,7 @@ import Homepage from "./employee/homepage/Homepagee";
 import Leaves from "./employee/leaves/Leaves";
 import Task from "./employee/task/Task";
 import Announcements from "./employee/announcements/Announcements";
+import Profile from "./employee/profile/Profile";
 
 // admin
 import AttendanceAd from "./admin/attendance/Attendancee";
@@ -48,6 +49,7 @@ function App() {
           <Route path="attendance" element={<Attendance />} />
           <Route path="task" element={<Task />} />
           <Route path="leave" element={<Leaves />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="announcements" element={<Announcements />} />
         </Route>
 
