@@ -139,8 +139,7 @@ body {
     align-items: flex-start;
     gap: 10px;
   }
-
-  .dropbtn {
+  + .dropbtn {
     padding: 8px 15px;
   }
 
