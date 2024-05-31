@@ -3,7 +3,129 @@ import axios from "axios";
 import "./Attendance.css";
 
 function Attendance() {
-  const [attendanceData, setAttendanceData] = useState([]);
+  const [attendanceData, setAttendanceData] = useState([
+    {
+      date: "2024-05-01",
+      loginTime: "09:00 AM",
+      logoutTime: "06:00 PM",
+      duration: "9 hours"
+    },
+    {
+      date: "2024-05-02",
+      loginTime: "09:15 AM",
+      logoutTime: "06:30 PM",
+      duration: "9 hours 15 minutes"
+    },
+    {
+      date: "2024-05-03",
+      loginTime: "09:10 AM",
+      logoutTime: "05:45 PM",
+      duration: "8 hours 35 minutes"
+    },
+    {
+      date: "2024-05-04",
+      loginTime: "09:30 AM",
+      logoutTime: "06:15 PM",
+      duration: "8 hours 45 minutes"
+    },
+    {
+      date: "2024-05-05",
+      loginTime: "09:05 AM",
+      logoutTime: "05:50 PM",
+      duration: "8 hours 45 minutes"
+    },
+    {
+      date: "2024-05-06",
+      loginTime: "09:20 AM",
+      logoutTime: "06:10 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-07",
+      loginTime: "09:25 AM",
+      logoutTime: "06:20 PM",
+      duration: "8 hours 55 minutes"
+    },
+    {
+      date: "2024-05-08",
+      loginTime: "09:15 AM",
+      logoutTime: "06:05 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-09",
+      loginTime: "09:00 AM",
+      logoutTime: "05:45 PM",
+      duration: "8 hours 45 minutes"
+    },
+    {
+      date: "2024-05-10",
+      loginTime: "09:10 AM",
+      logoutTime: "06:00 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-11",
+      loginTime: "09:30 AM",
+      logoutTime: "06:20 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-12",
+      loginTime: "09:20 AM",
+      logoutTime: "06:15 PM",
+      duration: "8 hours 55 minutes"
+    },
+    {
+      date: "2024-05-13",
+      loginTime: "09:05 AM",
+      logoutTime: "05:50 PM",
+      duration: "8 hours 45 minutes"
+    },
+    {
+      date: "2024-05-14",
+      loginTime: "09:10 AM",
+      logoutTime: "06:00 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-15",
+      loginTime: "09:30 AM",
+      logoutTime: "06:20 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-16",
+      loginTime: "09:20 AM",
+      logoutTime: "06:15 PM",
+      duration: "8 hours 55 minutes"
+    },
+    {
+      date: "2024-05-17",
+      loginTime: "09:05 AM",
+      logoutTime: "05:50 PM",
+      duration: "8 hours 45 minutes"
+    },
+    {
+      date: "2024-05-18",
+      loginTime: "09:10 AM",
+      logoutTime: "06:00 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-19",
+      loginTime: "09:30 AM",
+      logoutTime: "06:20 PM",
+      duration: "8 hours 50 minutes"
+    },
+    {
+      date: "2024-05-20",
+      loginTime: "09:20 AM",
+      logoutTime: "", // No logout time recorded
+      duration: "" // No duration available
+    }
+  ]);
+  
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
 
   const handleInputChange = (e) => {
@@ -17,15 +139,15 @@ function Attendance() {
   };
 
   const fetchAttendanceData = () => {
-    axios
-      .get(`http://localhost:5000/attendance/${dateRange.from}/${dateRange.to}`)
-      .then((response) => {
-        setAttendanceData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching attendance data:", error);
-      });
+    const filteredData = attendanceData.filter((entry) => {
+      const fromDate = new Date(dateRange.from);
+      const toDate = new Date(dateRange.to);
+      const currentDate = new Date(entry.date);
+      return currentDate >= fromDate && currentDate <= toDate;
+    });
+    setAttendanceData(filteredData);
   };
+  
 
   return (
     <div className="attendance-container">

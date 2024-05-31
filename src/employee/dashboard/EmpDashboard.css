@@ -130,7 +130,7 @@ body {
 /* Responsive design */
 @media (max-width: 768px) {
   .dashboard-header {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
 
@@ -139,7 +139,7 @@ body {
     align-items: flex-start;
     gap: 10px;
   }
-  + .dropbtn {
+  .dropbtn {
     padding: 8px 15px;
   }
 
