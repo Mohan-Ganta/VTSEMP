@@ -13,7 +13,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/register", {
+      await axios.post("https://vtsemp-back.onrender.com/register", {
         username,
         password,
       });

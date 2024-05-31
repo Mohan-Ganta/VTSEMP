@@ -4,7 +4,7 @@ import "./Homepage.css";
 
 function Homepagee() {
   const data = {
-    welcomeMessage: "Hello, John!",
+    welcomeMessage: "Welcome VTS!",
     cards: [
       {
         title: "Events",

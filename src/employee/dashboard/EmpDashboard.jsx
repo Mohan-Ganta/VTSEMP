@@ -10,8 +10,8 @@ function Empdashboard() {
           <img src="logo-icon.png" alt="Logo" />
         </div>
         <div className="user-info">
-          <span className="user-name">John Doe</span>
-          <span className="user-id">ID: 12345</span>
+          {/* <span className="user-name">John Doe</span>
+          <span className="user-id">ID: 12345</span> */}
           <div className="dropdown">
             <button className="dropbtn">Menu</button>
             <div className="dropdown-content">
