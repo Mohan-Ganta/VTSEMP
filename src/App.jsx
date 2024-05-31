@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -24,12 +24,19 @@ import AnnouncementsAd from "./admin/announcements/Announcements";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
+
+  useEffect(() => {
+    // Save token and username to localStorage to persist session across refreshes
+    if (token) localStorage.setItem("token", token);
+    if (username) localStorage.setItem("username", username);
+  }, [token, username]);
 
   return (
     <Router>
       <Routes>
         <Route index element={<Navigate replace to="login" />} />
-        <Route path="/login" element={<Login setToken={setToken} />} />
+        <Route path="/login" element={<Login setToken={setToken} setUsername={setUsername} />} />
         <Route path="/register" element={<Register />} />
 
         <Route
@@ -37,7 +44,7 @@ function App() {
           element={token ? <EmpDashboard /> : <Navigate to="/login" />}
         >
           <Route index element={<Navigate replace to="homepage" />} />
-          <Route path="homepage" element={<Homepage />} />
+          <Route path="homepage" element={<Homepage username={username} />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="task" element={<Task />} />
           <Route path="leave" element={<Leaves />} />
@@ -49,9 +56,8 @@ function App() {
           element={token ? <EmpDashboard /> : <Navigate to="/login" />}
         >
           <Route index element={<Navigate replace to="homepage" />} />
-          <Route path="homepage" element={<Homepage />} />
+          <Route path="homepage" element={<HomepageAd username={username} />} />
           <Route path="attendance" element={<AttendanceAd />} />
-          <Route path="homepage" element={<HomepageAd />} />
           <Route path="announcements" element={<AnnouncementsAd />} />
           <Route path="task" element={<TaskAd />} />
         </Route>
