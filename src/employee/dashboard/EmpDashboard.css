@@ -131,7 +131,7 @@ body {
 @media (max-width: 768px) {
   .dashboard-header {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .user-info {
