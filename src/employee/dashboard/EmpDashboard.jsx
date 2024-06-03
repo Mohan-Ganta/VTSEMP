@@ -59,7 +59,7 @@ function Empdashboard() {
               </a>
 
               <a href="#" onClick={handleLogout}>
-                Logout
+              <NavLink to="login">Logout</NavLink>
               </a>
             </div>
           </div>
