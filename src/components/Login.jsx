@@ -13,11 +13,12 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post("https://vtsemp-back.onrender.com/login", {
+      const response = await axios.post("https://vtsemp-back.onrender.com/login", {
         username,
         password,
       });
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("logId", response.data.logId);
       setToken(response.data.token);
       navigate("/employee");
     } catch (error) {

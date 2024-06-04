@@ -1,24 +1,33 @@
 import React from "react";
 import "./EmpDashboard.css";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Empdashboard() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.post('https://vtsemp-back.onrender.com/logout', {}, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      localStorage.removeItem('token');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error logging out', error);
+    }
   };
 
   const getDashboardContent = async () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('https://vtsemp-back.onrender.com/dashboard', {
-        headers: { 'Authorization': token }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       console.log(response.data);
     } catch (error) {
-      console.error('Error fetching dashboard content');
+      console.error('Error fetching dashboard content', error);
     }
   };
 
@@ -33,34 +42,16 @@ function Empdashboard() {
           <img src="./logo-icon.png" alt="Logo" />
         </div>
         <div className="user-info">
-
           <div className="dropdown">
             <button className="dropbtn">Menu</button>
             <div className="dropdown-content">
-              <a href="#">
-                <NavLink to="homepage">Homepage</NavLink>
-              </a>
-              <a href="#">
-                <NavLink to="task">Tasks</NavLink>
-              </a>
-
-              <a href="#">
-                <NavLink to="attendance">Attendance</NavLink>
-              </a>
-
-              <a href="#">
-                <NavLink to="announcements">Announcements</NavLink>
-              </a>
-              <a href="#">
-                <NavLink to="leave">Leave</NavLink>
-              </a>
-              <a href="#">
-                <NavLink to="profile">profile</NavLink>
-              </a>
-
-              <a href="#" onClick={handleLogout}>
-              <NavLink to="login">Logout</NavLink>
-              </a>
+              <NavLink to="homepage">Homepage</NavLink>
+              <NavLink to="task">Tasks</NavLink>
+              <NavLink to="attendance">Attendance</NavLink>
+              <NavLink to="announcements">Announcements</NavLink>
+              <NavLink to="leave">Leave</NavLink>
+              <NavLink to="profile">Profile</NavLink>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>
