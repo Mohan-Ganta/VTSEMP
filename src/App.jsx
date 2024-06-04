@@ -28,7 +28,6 @@ function App() {
   const [username, setUsername] = useState(localStorage.getItem("username"));
 
   useEffect(() => {
-    // Save token and username to localStorage to persist session across refreshes
     if (token) localStorage.setItem("token", token);
     if (username) localStorage.setItem("username", username);
   }, [token, username]);

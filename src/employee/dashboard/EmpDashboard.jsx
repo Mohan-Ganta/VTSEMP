@@ -1,6 +1,6 @@
 import React from "react";
 import "./EmpDashboard.css";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 function Empdashboard() {
   const navigate = useNavigate();
