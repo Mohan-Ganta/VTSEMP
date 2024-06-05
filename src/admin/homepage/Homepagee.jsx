@@ -3,7 +3,7 @@ function Homepagee() {
   return (
     <div className="main--container">
       <section className="welcome-message">
-        <h1>Hello, John!</h1>
+        <h1>Hello, Admin !</h1>
       </section>
       <section className="cards-container">
         <div className="card">

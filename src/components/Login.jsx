@@ -15,17 +15,22 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://vtsemp-back.onrender.com/login",
-        {
-          username,
-          password,
-        }
-      );
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("logId", response.data.logId);
-      setToken(response.data.token);
-      navigate("/employee");
+      // Check if username and password are "admin"
+      if (username === "admin" && password === "admin") {
+        navigate("/admin");
+      } else {
+        const response = await axios.post(
+          "https://vtsemp-back.onrender.com/login",
+          {
+            username,
+            password,
+          }
+        );
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("logId", response.data.logId);
+        setToken(response.data.token);
+        navigate("/employee");
+      }
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setError("Invalid credentials");
@@ -68,7 +73,6 @@ function Login({ setToken }) {
                 <img src={eyeIcon} alt="Eye icon" />
               </button>
             </div>
-            {/* <Link to="/register">New User?</Link> */}
           </div>
           {error && <div className="error-message">{error}</div>}
           <button className="login-btn" type="submit">
