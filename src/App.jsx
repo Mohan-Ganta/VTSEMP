@@ -22,6 +22,7 @@ import AttendanceAd from "./admin/attendance/Attendancee";
 import HomepageAd from "./admin/homepage/Homepagee";
 import TaskAd from "./admin/task/Task";
 import AnnouncementsAd from "./admin/announcements/Announcements";
+import LeaveAd from "./admin/leaves/Leave";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -63,6 +64,7 @@ function App() {
           <Route path="homepage" element={<HomepageAd username={username} />} />
           <Route path="attendance" element={<AttendanceAd />} />
           <Route path="announcements" element={<AnnouncementsAd />} />
+          <Route path="leave" element={<LeaveAd />} />
           <Route path="task" element={<TaskAd />} />
         </Route>
       </Routes>
