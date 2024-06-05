@@ -1,124 +1,140 @@
 import React, { useState, useEffect } from "react";
-import "./Leaves.css";
 import axios from "axios";
+import "./Leave.css";
 
 function LeavePage() {
-  const [formData, setFormData] = useState({
-    date: "", // We'll automatically set this in the backend
-    name: "",
-    id: "",
-    reason: "",
-    status: "", // By default, this will be pending
-  });
-  const [leaveData, setLeaveData] = useState([]);
+  const [leaveRequests, setLeaveRequests] = useState([]);
+  const [sortBy, setSortBy] = useState("");
+  const [filterBy, setFilterBy] = useState("Pending");
 
   useEffect(() => {
-    // Fetch leave data for the current employee on component mount
-    fetchLeaveData();
+    fetchLeaveRequests();
   }, []);
 
-  const fetchLeaveData = async () => {
+  const fetchLeaveRequests = async () => {
     try {
-      // Fetch the leave data for the current employee
       const response = await axios.get(
         "https://vtsemp-back.onrender.com/leave"
       );
-      setLeaveData(response.data);
+      setLeaveRequests(response.data);
     } catch (error) {
-      console.error("Error fetching leave data:", error);
+      console.error("Error fetching leave requests:", error);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleFilterChange = (e) => {
+    setFilterBy(e.target.value);
+  };
+
+  const filterLeaveRequests = (requests) => {
+    if (filterBy === "Approved") {
+      return requests.filter((request) => request.status === "Approved");
+    } else if (filterBy === "Declined") {
+      return requests.filter((request) => request.status === "Declined");
+    } else {
+      return requests;
+    }
+  };
+
+  const sortLeaveRequests = (requests) => {
+    if (sortBy === "date") {
+      return [...requests].sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === "status") {
+      return [...requests].sort((a, b) => {
+        const statusA = a.status.toUpperCase();
+        const statusB = b.status.toUpperCase();
+        if (statusA < statusB) {
+          return -1;
+        }
+        if (statusA > statusB) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      return requests;
+    }
+  };
+
+  const handleStatusChange = async (e, index) => {
+    const { value } = e.target;
+    const updatedLeaveRequests = [...leaveRequests];
+    updatedLeaveRequests[index].status = value;
+    setLeaveRequests(updatedLeaveRequests);
+
     try {
-      // Send the leave application data to the backend
-      const response = await axios.post(
-        "https://vtsemp-back.onrender.com/leave",
-        formData
+      await axios.put(
+        https://vtsemp-back.onrender.com/leave/${updatedLeaveRequests[index]._id},
+        {
+          status: value,
+        }
       );
-      console.log(response.data); // Log the response from the server
-      // After submitting leave application, fetch updated leave data
-      fetchLeaveData();
     } catch (error) {
-      console.error("Error submitting leave application:", error);
-      console.error("Error submitting leave application:", error);
+      console.error("Error updating leave status:", error);
+      setLeaveRequests((prevRequests) => {
+        const rollbackRequests = [...prevRequests];
+        rollbackRequests[index].status = leaveRequests[index].status;
+        return rollbackRequests;
+      });
     }
   };
 
   return (
     <div className="leave-page-container">
       <div className="leave-page-header">
-        <h1>Leave Application</h1>
+        <h1>Leave Requests</h1>
+        <div className="leave-page-sort">
+          {/* <label>Sort by:</label>
+          <select onChange={handleSortChange}>
+            <option value="">None</option>
+            <option value="date">Date</option>
+            <option value="status">Status</option>
+          </select> */}
+          <label>Filter by Status:</label>
+          <select value={filterBy} onChange={handleFilterChange}>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </div>
       </div>
-      <form className="leave-page-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="id">ID:</label>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="reason">Reason:</label>
-          <input
-            type="text"
-            id="reason"
-            name="reason"
-            value={formData.reason}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="apply-leave-button">
-          Apply Leave
-        </button>
-      </form>
-      <div className="leave-data-table">
-        <h2>My Leave Data</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Reason</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaveData.map((leave, index) => (
+      <table className="leave-requests-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Reason</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortLeaveRequests(filterLeaveRequests(leaveRequests)).map(
+            (request, index) => (
               <tr key={index}>
-                <td>{leave.date}</td>
-                <td>{leave.reason}</td>
-                <td>{leave.status}</td>
+                <td>{request.date}</td>
+                <td>{request.name}</td>
+                <td>{request.id}</td>
+                <td>{request.reason}</td>
+                <td>
+                  <select
+                    value={request.status}
+                    onChange={(e) => handleStatusChange(e, index)}
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Declined">Declined</option>
+                  </select>
+                </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <button className="back-button">Back</button>
+            )
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
