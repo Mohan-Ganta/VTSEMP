@@ -28,7 +28,7 @@ function EmpDashboard() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "https://vtsemp-back.onrender.com/dashboard",
+        // "https://vtsemp-back.onrender.com/dashboard",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -5,10 +5,9 @@ import "./Leave.css";
 function LeavePage() {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [sortBy, setSortBy] = useState("");
-  const [filterBy, setFilterBy] = useState("");
+  const [filterBy, setFilterBy] = useState("Pending");
 
   useEffect(() => {
-    // Fetch leave requests from the server on component mount
     fetchLeaveRequests();
   }, []);
 
@@ -44,8 +43,43 @@ function LeavePage() {
   const sortLeaveRequests = (requests) => {
     if (sortBy === "date") {
       return [...requests].sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === "status") {
+      return [...requests].sort((a, b) => {
+        const statusA = a.status.toUpperCase();
+        const statusB = b.status.toUpperCase();
+        if (statusA < statusB) {
+          return -1;
+        }
+        if (statusA > statusB) {
+          return 1;
+        }
+        return 0;
+      });
     } else {
       return requests;
+    }
+  };
+
+  const handleStatusChange = async (e, index) => {
+    const { value } = e.target;
+    const updatedLeaveRequests = [...leaveRequests];
+    updatedLeaveRequests[index].status = value;
+    setLeaveRequests(updatedLeaveRequests);
+
+    try {
+      await axios.put(
+        `https://vtsemp-back.onrender.com/leave/${updatedLeaveRequests[index]._id}`,
+        {
+          status: value,
+        }
+      );
+    } catch (error) {
+      console.error("Error updating leave status:", error);
+      setLeaveRequests((prevRequests) => {
+        const rollbackRequests = [...prevRequests];
+        rollbackRequests[index].status = leaveRequests[index].status;
+        return rollbackRequests;
+      });
     }
   };
 
@@ -54,14 +88,15 @@ function LeavePage() {
       <div className="leave-page-header">
         <h1>Leave Requests</h1>
         <div className="leave-page-sort">
-          <label>Sort by:</label>
+          {/* <label>Sort by:</label>
           <select onChange={handleSortChange}>
             <option value="">None</option>
             <option value="date">Date</option>
-          </select>
+            <option value="status">Status</option>
+          </select> */}
           <label>Filter by Status:</label>
-          <select onChange={handleFilterChange}>
-            <option value="">All</option>
+          <select value={filterBy} onChange={handleFilterChange}>
+            <option value="Pending">Pending</option>
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
           </select>
@@ -85,7 +120,16 @@ function LeavePage() {
                 <td>{request.name}</td>
                 <td>{request.id}</td>
                 <td>{request.reason}</td>
-                <td>{request.status}</td>
+                <td>
+                  <select
+                    value={request.status}
+                    onChange={(e) => handleStatusChange(e, index)}
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Declined">Declined</option>
+                  </select>
+                </td>
               </tr>
             )
           )}
