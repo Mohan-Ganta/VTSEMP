@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 import "./Login.css";
+import eyeIcon from "./eye.svg"; // Import eye icon SVG
 
 function Login({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -51,15 +53,29 @@ function Login({ setToken }) {
           </div>
           <div>
             <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="password-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <img src={eyeIcon} alt="Eye icon" />
+              </button>
+            </div>
+            {/* <Link to="/register">New User?</Link> */}
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Login</button>
+          <button className="login-btn" type="submit">
+            Login
+          </button>{" "}
+          <br></br>
+          <Link to="/register">New User?</Link>
         </form>
       </div>
     </div>

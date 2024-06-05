@@ -12,6 +12,9 @@ function Navbar() {
       </div>
       <ul className="navbar-links">
         <li>
+          <Link to="/admin">Admin</Link>
+        </li>
+        <li>
           <Link to="/login">Sign In</Link>
         </li>
         <li>
