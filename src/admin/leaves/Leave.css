@@ -1,6 +1,6 @@
 /* Global styles */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #f4f4f9;
   margin: 0;
   padding: 0;
@@ -99,5 +99,3 @@ body {
   resize: vertical;
   min-height: 100px;
 }
-
-/* Butt
