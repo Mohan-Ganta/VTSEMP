@@ -25,15 +25,13 @@ function Login() {
     try {
       console.log("Submitting credentials:", credentials);
 
-      const response = await axios.post(
-        `${process.env.API_URL}/login`,
-        { email: credentials.email, password: credentials.password }
-      );
+      const response = await axios.post(`${process.env.API_URL}/login`, {
+        email: credentials.email,
+        password: credentials.password,
+      });
       console.log("Response data:", response.data);
 
-      // Store the token in local storage
-      localStorage.setItem('token', response.data.token);
-
+      localStorage.setItem("token", response.data.token);
       navigate("/dashboard/homepage");
     } catch (error) {
       console.error("There was an error logging in!", error);

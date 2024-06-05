@@ -18,9 +18,13 @@ function Register() {
         password,
       });
       navigate("/login");
-    } catch (error) {
-      setError("Error registering user");
-      console.error(error.message);
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setError("Error registering user. Please try again.");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
+      console.error(err.message);
     }
   };
 
@@ -36,6 +40,7 @@ function Register() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -44,6 +49,7 @@ function Register() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           {error && <div className="error-message">{error}</div>}

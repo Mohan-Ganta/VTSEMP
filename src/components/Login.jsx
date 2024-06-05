@@ -13,17 +13,24 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://vtsemp-back.onrender.com/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "https://vtsemp-back.onrender.com/login",
+        {
+          username,
+          password,
+        }
+      );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("logId", response.data.logId);
       setToken(response.data.token);
       navigate("/employee");
-    } catch (error) {
-      setError("Invalid credentials");
-      console.error(error.message);
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setError("Invalid credentials");
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
+      console.error(err.message);
     }
   };
 
@@ -39,6 +46,7 @@ function Login({ setToken }) {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -47,6 +55,7 @@ function Login({ setToken }) {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           {error && <div className="error-message">{error}</div>}

@@ -7,8 +7,6 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-// import Register from "./employee/registration/Registrationn";
-// import Login from "./employee/login/Login";
 
 // employee
 import EmpDashboard from "./employee/dashboard/EmpDashboard";
