@@ -1,49 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Task.css";
 
 const App = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      projectName: "Project Alpha",
-      deadline: "2024-06-01",
-      brief: "Lorem ipsum dolor sit amet.",
-      projectLeader: "Alice",
-      projectMembers: ["Bob", "Charlie"],
-      status: "ongoing",
-    },
-    {
-      id: 2,
-      projectName: "Project Beta",
-      deadline: "2024-07-15",
-      brief: "Consectetur adipiscing elit.",
-      projectLeader: "David",
-      projectMembers: ["Eve", "Frank"],
-      status: "yet to start",
-    },
-    {
-      id: 3,
-      projectName: "Project Gamma",
-      deadline: "2024-05-30",
-      brief: "Sed do eiusmod tempor incididunt.",
-      projectLeader: "Grace",
-      projectMembers: ["Heidi", "Ivan"],
-      status: "completed",
-    },
-  ]);
-
+  const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all");
 
+  const [newTask, setNewTask] = useState({
+    projectName: "",
+    deadline: "",
+    brief: "",
+    projectLeader: "",
+    projectMembers: "",
+    status: "yet to start",
+  });
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get(
+        "https://vtsemp-back.onrender.com/tasks"
+      );
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+
   const handleStatusChange = (id, newStatus) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, status: newStatus } : task
-      )
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, status: newStatus } : task
     );
+    setTasks(updatedTasks);
+  };
+
+  const handleDeleteTask = async (id) => {
+    try {
+      await axios.delete(`https://vtsemp-back.onrender.com/tasks/${id}`);
+      setTasks(tasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewTask({ ...newTask, [name]: value });
   };
 
   const filteredTasks = tasks.filter(

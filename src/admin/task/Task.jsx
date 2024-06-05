@@ -1,37 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { FaTrash } from "react-icons/fa"; // Font Awesome icon import
+
 import "./Task.css";
 
 const App = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      projectName: "Project Alpha",
-      deadline: "2024-06-01",
-      brief: "Lorem ipsum dolor sit amet.",
-      projectLeader: "Alice",
-      projectMembers: ["Bob", "Charlie"],
-      status: "ongoing",
-    },
-    {
-      id: 2,
-      projectName: "Project Beta",
-      deadline: "2024-07-15",
-      brief: "Consectetur adipiscing elit.",
-      projectLeader: "David",
-      projectMembers: ["Eve", "Frank"],
-      status: "yet to start",
-    },
-    {
-      id: 3,
-      projectName: "Project Gamma",
-      deadline: "2024-05-30",
-      brief: "Sed do eiusmod tempor incididunt.",
-      projectLeader: "Grace",
-      projectMembers: ["Heidi", "Ivan"],
-      status: "completed",
-    },
-  ]);
-
+  const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all");
   const [showModal, setShowModal] = useState(false);
   const [newTask, setNewTask] = useState({
@@ -43,12 +17,42 @@ const App = () => {
     status: "yet to start",
   });
 
-  const handleStatusChange = (id, newStatus) => {
-    setTasks(
-      tasks.map((task) =>
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get(
+        "https://vtsemp-back.onrender.com/tasks"
+      );
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+
+  const handleDeleteTask = async (id) => {
+    try {
+      await axios.delete(`https://vtsemp-back.onrender.com/tasks/${id}`);
+      setTasks(tasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await axios.patch(`https://vtsemp-back.onrender.com/tasks/${id}`, {
+        status: newStatus,
+      });
+      const updatedTasks = tasks.map((task) =>
         task.id === id ? { ...task, status: newStatus } : task
-      )
-    );
+      );
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
 
   const handleFilterChange = (e) => {
@@ -60,16 +64,23 @@ const App = () => {
     setNewTask({ ...newTask, [name]: value });
   };
 
-  const handleCreateTask = () => {
-    const newTaskWithId = {
-      ...newTask,
-      id: tasks.length + 1,
-      projectMembers: newTask.projectMembers
-        .split(",")
-        .map((member) => member.trim()),
-    };
-    setTasks([...tasks, newTaskWithId]);
-    setShowModal(false);
+  const handleCreateTask = async () => {
+    try {
+      const taskData = {
+        ...newTask,
+        projectMembers: newTask.projectMembers
+          .split(",")
+          .map((member) => member.trim()),
+      };
+      const response = await axios.post(
+        "https://vtsemp-back.onrender.com/tasks",
+        taskData
+      );
+      setTasks([...tasks, response.data]);
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error creating task:", error);
+    }
   };
 
   const filteredTasks = tasks.filter(
@@ -93,6 +104,12 @@ const App = () => {
       <div className="task-list">
         {filteredTasks.map((task) => (
           <div className="task-card" key={task.id}>
+            <button
+              className="delete-buttons"
+              onClick={() => handleDeleteTask(task.id)}
+            >
+              <FaTrash className="delete-icon" />
+            </button>
             <h2>{task.projectName}</h2>
             <p>
               <strong>Deadline:</strong> {task.deadline}
@@ -104,7 +121,10 @@ const App = () => {
               <strong>Project Leader:</strong> {task.projectLeader}
             </p>
             <p>
-              <strong>Project Members:</strong> {task.projectMembers.join(", ")}
+              <strong>Project Members:</strong>{" "}
+              {Array.isArray(task.projectMembers)
+                ? task.projectMembers.join(", ")
+                : task.projectMembers}
             </p>
             <select
               value={task.status}
@@ -158,7 +178,7 @@ const App = () => {
                 />
               </label>
               <label>
-                Project Members (comma-separated):
+                Project Members:
                 <input
                   type="text"
                   name="projectMembers"
