@@ -50,6 +50,7 @@ function LeavePage() {
       fetchLeaveData();
     } catch (error) {
       console.error("Error submitting leave application:", error);
+      console.error("Error submitting leave application:", error);
     }
   };
 
