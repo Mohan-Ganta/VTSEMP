@@ -46,12 +46,12 @@ function Registration() {
     try {
       const response = await axios.post(
         "https://vtsemp-back.onrender.com/register",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        data
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
       );
       console.log(response.data);
       alert("User registered successfully");
@@ -174,7 +174,15 @@ function Registration() {
           <div className="form-row">
             <div className="input-group">
               <label htmlFor="designation">Designation</label>
-              <select
+              <input
+                type="designation"
+                id="designation"
+                name="designation"
+                value={formData.designation}
+                onChange={handleChange}
+                required
+              />
+              {/* <select
                 id="designation"
                 name="designation"
                 value={formData.designation}
@@ -186,7 +194,7 @@ function Registration() {
                 <option value="Developer">Developer</option>
                 <option value="Designer">Designer</option>
                 <option value="Analyst">Analyst</option>
-              </select>
+              </select> */}
             </div>
             <div className="input-group">
               <label htmlFor="profilePhoto">Profile Photo</label>
