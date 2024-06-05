@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./components/Login";
-import Register from "./components/Register";
+import Register from "./employee/registration/Registrationn";
 
 // employee
 import EmpDashboard from "./employee/dashboard/EmpDashboard";
@@ -36,7 +36,10 @@ function App() {
     <Router>
       <Routes>
         <Route index element={<Navigate replace to="login" />} />
-        <Route path="/login" element={<Login setToken={setToken} setUsername={setUsername} />} />
+        <Route
+          path="/login"
+          element={<Login setToken={setToken} setUsername={setUsername} />}
+        />
         <Route path="/register" element={<Register />} />
 
         <Route

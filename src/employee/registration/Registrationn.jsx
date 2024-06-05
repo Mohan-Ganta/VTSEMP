@@ -45,7 +45,7 @@ function Registration() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/register',
+        "https://vtsemp-back.onrender.com/register",
         data,
         {
           headers: {
