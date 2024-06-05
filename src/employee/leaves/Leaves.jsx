@@ -20,7 +20,9 @@ function LeavePage() {
   const fetchLeaveData = async () => {
     try {
       // Fetch the leave data for the current employee
-      const response = await axios.get("/api/leave");
+      const response = await axios.get(
+        "https://vtsemp-back.onrender.com/leave"
+      );
       setLeaveData(response.data);
     } catch (error) {
       console.error("Error fetching leave data:", error);
@@ -39,7 +41,10 @@ function LeavePage() {
     e.preventDefault();
     try {
       // Send the leave application data to the backend
-      const response = await axios.post("/api/leave", formData);
+      const response = await axios.post(
+        "https://vtsemp-back.onrender.com/leave",
+        formData
+      );
       console.log(response.data); // Log the response from the server
       // After submitting leave application, fetch updated leave data
       fetchLeaveData();

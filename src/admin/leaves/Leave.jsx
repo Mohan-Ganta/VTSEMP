@@ -14,7 +14,9 @@ function LeavePage() {
 
   const fetchLeaveRequests = async () => {
     try {
-      const response = await axios.get("/api/leave");
+      const response = await axios.get(
+        "https://vtsemp-back.onrender.com/leave"
+      );
       setLeaveRequests(response.data);
     } catch (error) {
       console.error("Error fetching leave requests:", error);
