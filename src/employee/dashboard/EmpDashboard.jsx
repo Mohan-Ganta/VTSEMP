@@ -1,9 +1,9 @@
-import React from "react";
-import "./EmpDashboard.css";
+import React, { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./EmpDashboard.css";
 
-function Empdashboard() {
+function EmpDashboard() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -11,13 +11,13 @@ function Empdashboard() {
       const token = localStorage.getItem("token");
       await axios.post(
         "https://vtsemp-back.onrender.com/logout",
-        { logId: localStorage.getItem("logId") }, // Include logId in the body
+        { logId: localStorage.getItem("logId") },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
       localStorage.removeItem("token");
-      localStorage.removeItem("logId"); // Remove logId from local storage
+      localStorage.removeItem("logId");
       navigate("/login");
     } catch (error) {
       console.error("Error logging out", error);
@@ -39,7 +39,7 @@ function Empdashboard() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     getDashboardContent();
   }, []);
 
@@ -74,4 +74,4 @@ function Empdashboard() {
   );
 }
 
-export default Empdashboard;
+export default EmpDashboard;

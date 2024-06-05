@@ -4,6 +4,7 @@ import "./Attendance.css";
 
 function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);
+  const [originalAttendanceData, setOriginalAttendanceData] = useState([]);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
 
   useEffect(() => {
@@ -12,8 +13,15 @@ function Attendance() {
 
   const fetchAttendanceData = async () => {
     try {
-      const response = await axios.get("https://vtsemp-back.onrender.com/attendance");
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "https://vtsemp-back.onrender.com/attendance",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setAttendanceData(response.data);
+      setOriginalAttendanceData(response.data);
     } catch (error) {
       console.error("Error fetching attendance data", error.message);
     }
@@ -26,9 +34,9 @@ function Attendance() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const filteredData = attendanceData.filter((entry) => {
-      const fromDate = new Date(dateRange.from);
-      const toDate = new Date(dateRange.to);
+    const fromDate = new Date(dateRange.from);
+    const toDate = new Date(dateRange.to);
+    const filteredData = originalAttendanceData.filter((entry) => {
       const currentDate = new Date(entry.loginTime);
       return currentDate >= fromDate && currentDate <= toDate;
     });
@@ -82,8 +90,20 @@ function Attendance() {
               <tr key={index}>
                 <td>{new Date(entry.loginTime).toLocaleDateString()}</td>
                 <td>{new Date(entry.loginTime).toLocaleTimeString()}</td>
-                <td>{entry.logoutTime ? new Date(entry.logoutTime).toLocaleTimeString() : "-"}</td>
-                <td>{entry.workingTime ? `${Math.floor(entry.workingTime / 3600000)} hours ${Math.floor((entry.workingTime % 3600000) / 60000)} minutes` : "-"}</td>
+                <td>
+                  {entry.logoutTime
+                    ? new Date(entry.logoutTime).toLocaleTimeString()
+                    : "-"}
+                </td>
+                <td>
+                  {entry.workingTime
+                    ? `${Math.floor(
+                        entry.workingTime / 3600000
+                      )} hours ${Math.floor(
+                        (entry.workingTime % 3600000) / 60000
+                      )} minutes`
+                    : "-"}
+                </td>
               </tr>
             ))}
           </tbody>
