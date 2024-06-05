@@ -13,7 +13,7 @@ function Empdashboard() {
         "https://vtsemp-back.onrender.com/logout",
         { logId: localStorage.getItem("logId") }, // Include logId in the body
         {
-          headers: { Authorization: Bearer ${token} },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       localStorage.removeItem("token");
@@ -30,7 +30,7 @@ function Empdashboard() {
       const response = await axios.get(
         "https://vtsemp-back.onrender.com/dashboard",
         {
-          headers: { Authorization: Bearer ${token} },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       console.log(response.data);
