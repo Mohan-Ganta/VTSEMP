@@ -8,26 +8,34 @@ function Empdashboard() {
 
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.post('https://vtsemp-back.onrender.com/logout', {}, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      localStorage.removeItem('token');
-      navigate('/login');
+      const token = localStorage.getItem("token");
+      await axios.post(
+        "https://vtsemp-back.onrender.com/logout",
+        { logId: localStorage.getItem("logId") }, // Include logId in the body
+        {
+          headers: { Authorization: Bearer ${token} },
+        }
+      );
+      localStorage.removeItem("token");
+      localStorage.removeItem("logId"); // Remove logId from local storage
+      navigate("/login");
     } catch (error) {
-      console.error('Error logging out', error);
+      console.error("Error logging out", error);
     }
   };
 
   const getDashboardContent = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('https://vtsemp-back.onrender.com/dashboard', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "https://vtsemp-back.onrender.com/dashboard",
+        {
+          headers: { Authorization: Bearer ${token} },
+        }
+      );
       console.log(response.data);
     } catch (error) {
-      console.error('Error fetching dashboard content', error);
+      console.error("Error fetching dashboard content", error);
     }
   };
 
