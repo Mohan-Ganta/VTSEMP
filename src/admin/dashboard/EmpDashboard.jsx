@@ -7,8 +7,8 @@ function Empdashboard() {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="logo">
-          <img src="./../../public/logo-icon.png" alt="Logo" />
-          VTS
+          <img src="./logo-icon.png" alt="Logo" />
+          <h2>VTS</h2>
         </div>
         <div className="user-info">
           <span className="user-name">John Doe</span>

@@ -48,6 +48,7 @@ function EmpDashboard() {
       <header className="dashboard-header">
         <div className="logo">
           <img src="./logo-icon.png" alt="Logo" />
+          <H2>VTS</H2>
         </div>
         <div className="user-info">
           <div className="dropdown">
