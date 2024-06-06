@@ -41,14 +41,16 @@ function Profile({ empid }) {
 
   return (
     <div className="profile-container">
-      <img
-        src={employee.profileUrl}
-        alt="Profile"
-        className="profile-picture"
-      />
-      <div className="profile-header">
+      <div className="left-ra-babu">
+        <img
+          src={employee.profileUrl}
+          alt="Profile"
+          className="profile-picture"
+        />
         <h1>{employee.fullname}</h1>
         <p>{employee.designation}</p>
+      </div>
+      <div className="profile-header">
         <div className="profile-details">
           <h2>Contact Information</h2>
           <p>
