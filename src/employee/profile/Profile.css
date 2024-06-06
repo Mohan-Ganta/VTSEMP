@@ -1,36 +1,122 @@
+/* Profile.css */
+
 .profile-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  font-family: "Arial", sans-serif;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4caf50;
+  transition: transform 0.3s ease;
+
+  object-position: top;
+}
+
+.profile-picture:hover {
+  transform: scale(1.05);
+}
+
+.profile-header {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-header h1 {
+  margin: 0;
+  font-size: 1.8em;
+  color: #4caf50;
+}
+
+.profile-header p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #666;
+}
+
+.profile-details {
+  margin-top: 10px;
+}
+
+.profile-details h2 {
+  margin-top: 0;
+  font-size: 1.3em;
+  color: #4caf50;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.profile-details p {
+  margin: 8px 0;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.profile-details strong {
+  color: #333;
+}
+
+.heading-emp {
+  margin-top: 30px !important;
+}
+
+.ofr-ltr-btn:link,
+.ofr-ltr-btn:visited {
+  color: #f4f4f4;
+  text-decoration: none;
+  padding: 8px 10px;
+  background-color: #4caf50;
+  border-radius: 4px;
+  margin-top: 20px !important;
+}
+
+/* 
+@media (max-width: 600px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
   }
-  
+
   .profile-header {
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  
-  .profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 20px;
+
+  .profile-header h1 {
+    font-size: 1.6em;
   }
-  
-  .profile-details {
-    margin-top: 20px;
+
+  .profile-header p {
+    font-size: 1em;
   }
-  
+
   .profile-details h2 {
-    margin-bottom: 10px;
+    font-size: 1.2em;
   }
-  
+
   .profile-details p {
-    margin-bottom: 5px;
+    font-size: 0.85em;
   }
-  
-  .profile-details strong {
-    font-weight: bold;
-  }
-  
+} */

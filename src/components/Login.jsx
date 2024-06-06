@@ -6,7 +6,7 @@ import "./Login.css";
 import eyeIcon from "./eye.svg"; // Import eye icon SVG
 
 function Login({ setToken }) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); // Renamed to email
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
@@ -15,19 +15,22 @@ function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if username and password are "admin"
-      if (username === "admin" && password === "admin") {
+      // Check if email and password are "admin"
+      if (email === "admin" && password === "admin") {
         navigate("/admin");
       } else {
         const response = await axios.post(
           "https://vtsemp-back.onrender.com/login",
           {
-            username,
+            email, // Changed to email
             password,
           }
         );
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("logId", response.data.logId);
+        localStorage.setItem("empId", response.data.empId);
+        localStorage.setItem("email", email); // Store email in localStorage
+
         setToken(response.data.token);
         navigate("/employee");
       }
@@ -48,11 +51,11 @@ function Login({ setToken }) {
         <form className="login-form" onSubmit={handleSubmit}>
           <h2>Login</h2>
           <div>
-            <label>Username</label>
+            <label>Email</label>
             <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              value={email} // Changed to email
+              onChange={(e) => setEmail(e.target.value)} // Changed to setEmail
               required
             />
           </div>
@@ -78,7 +81,7 @@ function Login({ setToken }) {
           <button className="login-btn" type="submit">
             Login
           </button>{" "}
-          <br></br>
+          <br />
           <Link to="/register">New User?</Link>
         </form>
       </div>

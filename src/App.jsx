@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -28,12 +30,32 @@ import LeaveAd from "./admin/leaves/Leave";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [username, setUsername] = useState(localStorage.getItem("username"));
+  const [employee, setEmployee] = useState("");
 
   useEffect(() => {
     if (token) localStorage.setItem("token", token);
     if (username) localStorage.setItem("username", username);
   }, [token, username]);
 
+  // Fetch whole employee data
+  const fetchEmployees = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const email = localStorage.getItem("email");
+      const response = await axios.get(
+        `https://vtsemp-back.onrender.com/employees/${email}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setEmployee(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching employee data", error);
+    }
+  };
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
   return (
     <Router>
       <Routes>
@@ -53,7 +75,7 @@ function App() {
           <Route path="attendance" element={<Attendance />} />
           <Route path="task" element={<Task />} />
           <Route path="leave" element={<Leaves />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<Profile empid={employee.empId} />} />
           <Route path="announcements" element={<Announcements />} />
         </Route>
 

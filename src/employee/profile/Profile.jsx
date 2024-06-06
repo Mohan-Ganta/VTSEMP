@@ -1,38 +1,75 @@
-import React from "react";
-import "./Profile.css"; // Don't forget to create the corresponding CSS file for styling
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import "./Profile.css"; // Ensure you have the corresponding CSS file for styling
 
-function Profile() {
-  // Sample employee data
-  const employee = {
-    id: "VTS2025107",
-    name: "Mohan Ganta",
-    position: "Software Engineer",
-    department: "Engineering",
-    email: "mohan.ganta@example.com",
-    phoneNumber: "+91 9618850656",
-    address: "Seetharampuram, 1-80, Roypeta, Narasapuram",
-    profilePicture: "https://mohan-ganta.github.io/portofolio/static/media/boy.13213880b149bb2f272f.png", // Placeholder image URL
-  };
+function Profile({ empid }) {
+  const [employee, setEmployee] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  console.log(empid);
+
+  useEffect(() => {
+    const fetchEmployeeData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `https://vtsemp-back.onrender.com/user/${empid}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setEmployee(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchEmployeeData();
+  }, [empid]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="profile-container">
+      <img
+        src={employee.profileUrl}
+        alt="Profile"
+        className="profile-picture"
+      />
       <div className="profile-header">
-        <img
-          src={employee.profilePicture}
-          alt="Profile"
-          className="profile-picture"
-        />
-        <h1>{employee.name}</h1>
-        <p>{employee.position}</p>
-      </div>
-      <div className="profile-details">
-        <h2>Contact Information</h2>
-        <p><strong>Email:</strong> {employee.email}</p>
-        <p><strong>Phone:</strong> {employee.phoneNumber}</p>
-        <p><strong>Address:</strong> {employee.address}</p>
-        <h2>Employee Details</h2>
-        <p><strong>ID:</strong> {employee.id}</p>
-        <p><strong>Department:</strong> {employee.department}</p>
+        <h1>{employee.fullname}</h1>
+        <p>{employee.designation}</p>
+        <div className="profile-details">
+          <h2>Contact Information</h2>
+          <p>
+            <strong>Email:</strong> {employee.email}
+          </p>
+          <p>
+            <strong>Phone:</strong> {employee.phoneNo}
+          </p>
+          <h2 className="heading-emp">Employee Details</h2>
+          <p>
+            <strong>ID:</strong> {employee.empId}
+          </p>
+          <a
+            className="ofr-ltr-btn"
+            href={employee.docUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Offer Letter
+          </a>
+        </div>
       </div>
     </div>
   );
