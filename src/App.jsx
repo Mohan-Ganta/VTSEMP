@@ -75,7 +75,7 @@ function App() {
           <Route path="attendance" element={<Attendance />} />
           <Route path="task" element={<Task />} />
           <Route path="leave" element={<Leaves />} />
-          <Route path="profile" element={<Profile empid={employee.empId} />} />
+          <Route path="profile" element={<Profile empid={employee?.empId} />} />
           <Route path="announcements" element={<Announcements />} />
         </Route>
 
