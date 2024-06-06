@@ -8,6 +8,7 @@ function Navbar() {
       <div className="navbar-logo">
         <Link to="/">
           <img src="./logo-icon.png" alt="Logo" />
+          <h2>VTS</h2>
         </Link>
       </div>
       <ul className="navbar-links">
