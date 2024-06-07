@@ -8,7 +8,6 @@ function EmpDashboard() {
   const [empId, setEmpId] = useState(localStorage.getItem("empId"));
   const [employee, setEmployee] = useState("");
 
-  // Fetch whole employee data
   const fetchEmployees = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -54,7 +53,7 @@ function EmpDashboard() {
         <div className="logo">
           <img src="./logo-icon.png" alt="Logo" />
           <h2>VTS</h2>
-          <p>vts id : {employee.empId}</p> {/* Render empId here */}
+          <p>vts id : {employee?.empId}</p> {/* Render empId here */}
         </div>
         <div className="user-info">
           <div className="dropdown">
@@ -66,9 +65,7 @@ function EmpDashboard() {
               <NavLink to="announcements">Announcements</NavLink>
               <NavLink to="leave">Leave</NavLink>
 
-              <NavLink empid={employee.empId} to="profile">
-                Profile
-              </NavLink>
+              <NavLink to="profile">Profile</NavLink>
 
               <button onClick={handleLogout}>Logout</button>
             </div>

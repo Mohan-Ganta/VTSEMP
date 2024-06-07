@@ -71,12 +71,21 @@ function App() {
           element={token ? <EmpDashboard /> : <Navigate to="/login" />}
         >
           <Route index element={<Navigate replace to="homepage" />} />
-          <Route path="homepage" element={<Homepage username={username} />} />
-          <Route path="attendance" element={<Attendance />} />
-          <Route path="task" element={<Task />} />
-          <Route path="leave" element={<Leaves />} />
+          <Route
+            path="homepage"
+            element={<Homepage username={username} empid={employee?.empId} />}
+          />
+          <Route
+            path="attendance"
+            element={<Attendance empid={employee?.empId} />}
+          />
+          <Route path="task" element={<Task empid={employee?.empId} />} />
+          <Route path="leave" element={<Leaves empid={employee?.empId} />} />
           <Route path="profile" element={<Profile empid={employee?.empId} />} />
-          <Route path="announcements" element={<Announcements />} />
+          <Route
+            path="announcements"
+            element={<Announcements empid={employee?.empId} />}
+          />
         </Route>
 
         <Route

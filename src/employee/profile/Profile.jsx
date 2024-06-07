@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import "./Profile.css"; // Ensure you have the corresponding CSS file for styling
-
+import "./Profile.css";
 function Profile({ empid }) {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);

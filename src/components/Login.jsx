@@ -27,8 +27,13 @@ function Login({ setToken }) {
         );
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("logId", response.data.logId);
-        localStorage.setItem("empId", response.data.empId);
-        localStorage.setItem("email", email);
+        localStorage.setItem("email", response.data.email);
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(response.data.userData)
+        ); // Store full user data
+
+        console.log(response.data);
 
         setToken(response.data.token);
         navigate("/employee");
@@ -53,8 +58,8 @@ function Login({ setToken }) {
             <label>Email</label>
             <input
               type="email"
-              value={email} // Changed to email
-              onChange={(e) => setEmail(e.target.value)} // Changed to setEmail
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>

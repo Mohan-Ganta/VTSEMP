@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Attendance.css";
 
-function Attendance() {
+function Attendance({ empid }) {
   const [attendanceData, setAttendanceData] = useState([]);
   const [originalAttendanceData, setOriginalAttendanceData] = useState([]);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
