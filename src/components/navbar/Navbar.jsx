@@ -8,8 +8,8 @@ function Navbar() {
       <div className="navbar-logo">
         <Link to="/">
           <img src="./logo-icon.png" alt="Logo" />
-          <h2>VTS</h2>
         </Link>
+        <h2>VTS</h2>
       </div>
       <ul className="navbar-links">
         <li>

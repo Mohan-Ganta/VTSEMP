@@ -3,33 +3,32 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 import "./Login.css";
-import eyeIcon from "./eye.svg"; // Import eye icon SVG
+import eyeIcon from "./eye.svg";
 
 function Login({ setToken }) {
-  const [email, setEmail] = useState(""); // Renamed to email
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if email and password are "admin"
       if (email === "admin" && password === "admin") {
         navigate("/admin");
       } else {
         const response = await axios.post(
           "https://vtsemp-back.onrender.com/login",
           {
-            email, // Changed to email
+            email,
             password,
           }
         );
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("logId", response.data.logId);
         localStorage.setItem("empId", response.data.empId);
-        localStorage.setItem("email", email); // Store email in localStorage
+        localStorage.setItem("email", email);
 
         setToken(response.data.token);
         navigate("/employee");
