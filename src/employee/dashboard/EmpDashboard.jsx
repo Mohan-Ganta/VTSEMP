@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmpDashboard.css";
+import { useAppContext } from "../../components/AppContext";
 
 function EmpDashboard() {
   const navigate = useNavigate();
   const [empId, setEmpId] = useState(localStorage.getItem("empId"));
   const [employee, setEmployee] = useState("");
+  
 
   const fetchEmployees = async () => {
     try {
@@ -19,6 +21,7 @@ function EmpDashboard() {
         }
       );
       setEmployee(response.data[0]);
+
     } catch (error) {
       console.error("Error fetching employee data", error);
     }
@@ -37,6 +40,7 @@ function EmpDashboard() {
       localStorage.removeItem("token");
       localStorage.removeItem("logId");
       localStorage.removeItem("empId");
+      localStorage.removeItem("userData")
       navigate("/login");
     } catch (error) {
       console.error("Error logging out", error);

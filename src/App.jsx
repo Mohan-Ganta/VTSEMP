@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { AppProvider } from "./components/AppContext";
 import {
   BrowserRouter as Router,
   Route,
@@ -48,6 +48,7 @@ function App() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
       setEmployee(response.data[0]);
     } catch (error) {
       console.error("Error fetching employee data", error);
@@ -58,6 +59,7 @@ function App() {
   }, []);
   return (
     <Router>
+      <AppProvider>
       <Routes>
         <Route index element={<Navigate replace to="login" />} />
         <Route
@@ -100,6 +102,7 @@ function App() {
           <Route path="task" element={<TaskAd />} />
         </Route>
       </Routes>
+      </AppProvider>
     </Router>
   );
 }

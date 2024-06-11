@@ -2,25 +2,28 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./Profile.css";
+import { useAppContext } from "../../components/AppContext";
 function Profile({ empid }) {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  console.log(empid);
+  const {employeeData} = useAppContext();
+  // console.log(empid);
 
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
         const token = localStorage.getItem("token");
+        const userid = localStorage.getItem("userData");
+        console.log("user data" +userid)
         const response = await axios.get(
-          `https://vtsemp-back.onrender.com/user/${empid}`,
+          `https://vtsemp-back.onrender.com/employees/${localStorage.getItem("email")}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setEmployee(response.data);
-        console.log(response.data);
+        console.log("response data from the feteched response" + response.data[0])
+        setEmployee(response.data[0]);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -29,7 +32,7 @@ function Profile({ empid }) {
     };
 
     fetchEmployeeData();
-  }, [empid]);
+  },[employee]);
 
   if (loading) {
     return <div>Loading...</div>;

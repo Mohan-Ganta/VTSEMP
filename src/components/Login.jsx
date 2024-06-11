@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 import "./Login.css";
 import eyeIcon from "./eye.svg";
+import { useAppContext } from "./AppContext";
 
 function Login({ setToken }) {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ function Login({ setToken }) {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+  const {handleEmployeeData}  = useAppContext()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,6 +29,7 @@ function Login({ setToken }) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("logId", response.data.logId);
         localStorage.setItem("email", response.data.email);
+        handleEmployeeData(response.data.email)
         localStorage.setItem(
           "userData",
           JSON.stringify(response.data.userData)

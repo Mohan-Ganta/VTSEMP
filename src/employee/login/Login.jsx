@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"; // Advanced CSS file
+import dotenv from "dotenv"
+dotenv.config()
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -29,7 +31,7 @@ function Login() {
         email: credentials.email,
         password: credentials.password,
       });
-      console.log("Response data:", response.data);
+      console.log("Response data from db:", response.data);
 
       localStorage.setItem("token", response.data.token);
       navigate("/dashboard/homepage");

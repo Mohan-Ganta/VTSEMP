@@ -10,21 +10,21 @@ function Dashboard() {
     navigate('/login');
   };
 
-  const getDashboardContent = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/dashboard', {
-        headers: { 'Authorization': token }
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching dashboard content');
-    }
-  };
+  // const getDashboardContent = async () => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     const response = await axios.get('http://localhost:5000/dashboard', {
+  //       headers: { 'Authorization': token }
+  //     });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching dashboard content');
+  //   }
+  // };
 
-  React.useEffect(() => {
-    getDashboardContent();
-  }, []);
+  // React.useEffect(() => {
+  //   getDashboardContent();
+  // }, []);
 
   return (
     <div>
