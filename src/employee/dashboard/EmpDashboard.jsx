@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmpDashboard.css";
-import { useAppContext } from "../../components/AppContext";
 
 function EmpDashboard() {
   const navigate = useNavigate();
-  const [empId, setEmpId] = useState(localStorage.getItem("empId"));
   const [employee, setEmployee] = useState("");
   
 

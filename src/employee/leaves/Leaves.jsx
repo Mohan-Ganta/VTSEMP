@@ -3,7 +3,10 @@ import "./Leaves.css";
 import axios from "axios";
 
 function LeavePage() {
+  const userid = JSON.parse(localStorage.getItem("userData"));
+  console.log(userid._id)
   const [formData, setFormData] = useState({
+    userId : userid._id,
     date: "", // We'll automatically set this in the backend
     name: "",
     id: "",
@@ -21,7 +24,7 @@ function LeavePage() {
     try {
       // Fetch the leave data for the current employee
       const response = await axios.get(
-        "https://vtsemp-back.onrender.com/leave"
+        `https://vtsemp-back.onrender.com/leave/${userid._id}`
       );
       setLeaveData(response.data);
     } catch (error) {
@@ -30,7 +33,7 @@ function LeavePage() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value  } = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -40,6 +43,7 @@ function LeavePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData)
       // Send the leave application data to the backend
       const response = await axios.post(
         "https://vtsemp-back.onrender.com/leave",

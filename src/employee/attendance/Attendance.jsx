@@ -1,27 +1,33 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Attendance.css";
 
-function Attendance({ empid }) {
+
+function Attendance() {
+  const userid = JSON.parse(localStorage.getItem("userData"));
+
   const [attendanceData, setAttendanceData] = useState([]);
   const [originalAttendanceData, setOriginalAttendanceData] = useState([]);
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
-
+ 
   useEffect(() => {
+    
     fetchAttendanceData();
   }, []);
 
   const fetchAttendanceData = async () => {
     try {
       const token = localStorage.getItem("token");
+      console.log("user data  "+userid._id)
       const response = await axios.get(
-        "https://vtsemp-back.onrender.com/attendance",
+        `https://vtsemp-back.onrender.com/attendance/${userid._id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setAttendanceData(response.data);
-      setOriginalAttendanceData(response.data);
+      console.log(response.data.userLog)
+      setAttendanceData(response.data.userLog);
+      setOriginalAttendanceData(response.data.userLog);
     } catch (error) {
       console.error("Error fetching attendance data", error.message);
     }

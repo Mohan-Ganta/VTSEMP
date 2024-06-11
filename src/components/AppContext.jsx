@@ -5,7 +5,7 @@ export const useAppContext = () => useContext(AppContext);
 export const AppProvider = ({children})=>{
     const [employeeData , setEmployeeData] = useState()
     const handleEmployeeData = (data)=>{
-        console.log("data received to app context" +data)
+        console.log("data received to app context " +data)
         setEmployeeData(data)
     }
     return(

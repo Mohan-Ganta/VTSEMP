@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import "./Profile.css";
-import { useAppContext } from "../../components/AppContext";
-function Profile({ empid }) {
+function Profile() {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {employeeData} = useAppContext();
   // console.log(empid);
 
   useEffect(() => {
