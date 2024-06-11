@@ -20,6 +20,7 @@ function Profile({ empid }) {
           }
         );
         setEmployee(response.data);
+        console.log(response.data);
         setLoading(false);
       } catch (err) {
         setError(err.message);
