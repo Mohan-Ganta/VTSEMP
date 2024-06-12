@@ -4,24 +4,28 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css"; // Advanced CSS file
 
 function Login() {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({
-      ...credentials,
-      [name]: value,
-    });
-  };
-
+  const [email,setEmail] = useState()
+  const [password,setPassword] = useState()
+  const [error,setError] = useState()
+  const navigate = useNavigate()
+  const handleChangeEmail = (e)=>{
+    setEmail(e.target.value)
+  }
+  const handleChangePassword = (e)=>{
+    setPassword(e.target.value)
+  }
   const handleSubmit = async (e) => {
     console.log("era");
-    // e.preventDefault();
+    e.preventDefault();
+    if(email === "admin@gmail.com" && password === "vts@admin")
+      {
+        console.log("Welcome Admin")
+        localStorage.setItem("admin","true")
+        navigate("/admin")
+      }
+      else{
+        setError("Invalid Credentials")
+      }
 
     // try {
     //   console.log("Submitting credentials:", credentials);
@@ -48,7 +52,7 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h1>Login</h1>
+        <h1>Admin Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
@@ -56,8 +60,8 @@ function Login() {
               type="email"
               id="email"
               name="email"
-              value={credentials.email}
-              onChange={handleChange}
+              value={email}
+              onChange={handleChangeEmail}
               required
             />
           </div>
@@ -67,8 +71,8 @@ function Login() {
               type="password"
               id="password"
               name="password"
-              value={credentials.password}
-              onChange={handleChange}
+              value={password}
+              onChange={handleChangePassword}
               required
             />
           </div>
@@ -77,9 +81,9 @@ function Login() {
             Login
           </button>
         </form>
+        <p>Back to <a href="/">User Login</a></p>
       </div>
     </div>
   );
 }
-
 export default Login;

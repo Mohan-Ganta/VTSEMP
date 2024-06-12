@@ -6,6 +6,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -21,6 +22,8 @@ import Announcements from "./employee/announcements/Announcements";
 import Profile from "./employee/profile/Profile";
 
 // admin
+import AdminLogin from "./admin/login/Login"
+import AdminDashBoard from "./admin/dashboard/EmpDashboard"
 import AttendanceAd from "./admin/attendance/Attendancee";
 import HomepageAd from "./admin/homepage/Homepagee";
 import TaskAd from "./admin/task/Task";
@@ -31,10 +34,18 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [employee, setEmployee] = useState("");
+  const [isAdmin,setIsAdmin] = useState(false);
 
+  useEffect(()=>{
+    if(localStorage.getItem("admin"))
+      setIsAdmin(true)
+    else
+      setIsAdmin(false)
+  },[isAdmin])
   useEffect(() => {
     if (token) localStorage.setItem("token", token);
     if (username) localStorage.setItem("username", username);
+    
   }, [token, username]);
 
   // Fetch whole employee data
@@ -89,8 +100,18 @@ function App() {
             element={<Announcements empid={employee?.empId} />}
           />
         </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        {/* <Route path="/admin" element={isAdmin ? (<AdminDashBoard />):(<><h3>Access Denied !!!!!</h3><br/>Please login with Admin credentials to view this page</>)} /> */}
+        <Route path="/admin" element={isAdmin?(<HomepageAd />):(<><h3>Access Denied !!!!!</h3><br/>Please login with Admin credentials to view this page</>)} />
+        <Route path="/admin/task" element={isAdmin?(<TaskAd />):(<><h3>Access Denied !!!!!</h3><br/>Please login with Admin credentials to view this page</>)} />
+        <Route path="/admin/attendance" element={isAdmin?(<AttendanceAd />):(<><h3>Access Denied !!!!!</h3><br/>Please login with Admin credentials to view this page</>)} />
+        <Route path="/admin/announcements" element={isAdmin?(<AnnouncementsAd />):(<><h3>Access Denied !!!!!</h3><br/>Please login with Admin credentials to view this page</>)} />
+        <Route path="/admin/leaves" element={isAdmin?(<LeaveAd />):(<><h3>Access Denied !!!!!</h3><br/>Please login with Admin credentials to view this page</>)} />
 
-        <Route
+
+
+
+        {/* <Route
           path="admin"
           element={token ? <EmpDashboard /> : <Navigate to="/login" />}
         >
@@ -100,7 +121,7 @@ function App() {
           <Route path="announcements" element={<AnnouncementsAd />} />
           <Route path="leave" element={<LeaveAd />} />
           <Route path="task" element={<TaskAd />} />
-        </Route>
+        </Route> */}
       </Routes>
       </AppProvider>
     </Router>

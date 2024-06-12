@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Employees.css";
+import Navbar from "../navbar/Navbar";
 
 const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,6 +31,8 @@ const EmployeeList = () => {
   );
 
   return (
+    <>
+    <Navbar />
     <div className="container">
       <input
         type="text"
@@ -80,6 +83,7 @@ const EmployeeList = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

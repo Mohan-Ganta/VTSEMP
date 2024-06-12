@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Attendance.css";
+import Navbar from "../navbar/Navbar";
 
 function Attendance() {
   const [attendanceData, setAttendanceData] = useState([
@@ -83,36 +84,17 @@ function Attendance() {
       );
     } else if (sortBy === "date") {
       return (
-        <div className="form-row">
-          <div className="input-group">
-            <label htmlFor="from">From Date</label>
-            <input
-              type="date"
-              id="from"
-              name="from"
-              value={dateRange.from}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="to">To Date</label>
-            <input
-              type="date"
-              id="to"
-              name="to"
-              value={dateRange.to}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-        </div>
+        <>
+        <Navbar />
+        </>
       );
     }
     return null;
   };
 
   return (
+    <>
+    <Navbar />
     <div className="attendance-container">
       <div className="attendance-box">
         <h1>Attendance</h1>
@@ -164,6 +146,7 @@ function Attendance() {
         </table>
       </div>
     </div>
+    </>
   );
 }
 

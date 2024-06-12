@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Leave.css";
+import Navbar from "../navbar/Navbar";
 
 function LeavePage() {
   const [leaveRequests, setLeaveRequests] = useState([]);
@@ -84,6 +85,8 @@ function LeavePage() {
   };
 
   return (
+   <>
+   <Navbar />
     <div className="leave-page-container">
       <div className="leave-page-header">
         <h1>Leave Requests</h1>
@@ -136,6 +139,7 @@ function LeavePage() {
         </tbody>
       </table>
     </div>
+   </>
   );
 }
 

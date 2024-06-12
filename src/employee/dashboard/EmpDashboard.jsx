@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmpDashboard.css";
+import logo from "C:/Users/DELL/Documents/GitHub/VTSEMP/public/logo-icon.png"
 
 function EmpDashboard() {
   const navigate = useNavigate();
   const [employee, setEmployee] = useState("");
-  
 
   const fetchEmployees = async () => {
     try {
@@ -19,7 +19,6 @@ function EmpDashboard() {
         }
       );
       setEmployee(response.data[0]);
-
     } catch (error) {
       console.error("Error fetching employee data", error);
     }
@@ -38,7 +37,7 @@ function EmpDashboard() {
       localStorage.removeItem("token");
       localStorage.removeItem("logId");
       localStorage.removeItem("empId");
-      localStorage.removeItem("userData")
+      localStorage.removeItem("userData");
       navigate("/login");
     } catch (error) {
       console.error("Error logging out", error);
@@ -53,9 +52,11 @@ function EmpDashboard() {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="logo">
-          <img src="./logo-icon.png" alt="Logo" />
-          <h2>VTS</h2>
-          <p>vts id : {employee?.empId}</p> {/* Render empId here */}
+          <div className="logo-img">
+            <img src={logo} alt="Logo" />
+            <h2>VTS Enterprises</h2>
+          </div>
+          <p>VTS ID : {employee?.empId}</p> {/* Render empId here */}
         </div>
         <div className="user-info">
           <div className="dropdown">
@@ -66,7 +67,6 @@ function EmpDashboard() {
               <NavLink to="attendance">Attendance</NavLink>
               <NavLink to="announcements">Announcements</NavLink>
               <NavLink to="leave">Leave</NavLink>
-
               <NavLink to="profile">Profile</NavLink>
 
               <button onClick={handleLogout}>Logout</button>

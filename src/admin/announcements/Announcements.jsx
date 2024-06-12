@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Announcements.css";
+import Navbar from "../navbar/Navbar";
 
 const Announcement = () => {
   const [announcement, setAnnouncement] = useState("");
@@ -82,6 +83,8 @@ const Announcement = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="anc-ctn">
       <div className="announcement-container">
         <div className="announcement-box">
@@ -127,6 +130,8 @@ const Announcement = () => {
         </div>
       </div>
     </div>
+    </>
+    
   );
 };
 

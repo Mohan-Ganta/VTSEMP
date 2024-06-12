@@ -88,7 +88,7 @@ function Login({ setToken }) {
             Login
           </button>{" "}
           <br />
-          <Link to="/register">New User?</Link>
+          <a href="/register">New User?</a>
         </form>
       </div>
     </div>

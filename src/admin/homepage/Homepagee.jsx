@@ -1,6 +1,9 @@
+import Navbar from "../navbar/Navbar";
 import "./Homepage.css";
 function Homepagee() {
   return (
+    <>
+    <Navbar />
     <div className="main--container">
       <section className="welcome-message">
         <h1>Hello, Admin !</h1>
@@ -24,6 +27,7 @@ function Homepagee() {
         </div>
       </section>
     </div>
+    </>
   );
 }
 

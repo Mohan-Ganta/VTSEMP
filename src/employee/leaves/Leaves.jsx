@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Leaves.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LeavePage() {
   const userid = JSON.parse(localStorage.getItem("userData"));
+  const navigate = useNavigate();
   console.log(userid._id)
   const [formData, setFormData] = useState({
     userId : userid._id,
@@ -39,7 +41,9 @@ function LeavePage() {
       [name]: value,
     });
   };
-
+  const handleBackbtn = ()=>{
+    navigate("/employee")
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -97,9 +101,10 @@ function LeavePage() {
             required
           />
         </div>
-        <button type="submit" className="apply-leave-button">
-          Apply Leave
-        </button>
+        <div>
+        <button type="submit" className="apply-leave-button">Apply Leave</button>
+        </div>
+        
       </form>
       <div className="leave-data-table">
         <h2>My Leave Data</h2>
@@ -122,7 +127,7 @@ function LeavePage() {
           </tbody>
         </table>
       </div>
-      <button className="back-button">Back</button>
+      <button onClick={handleBackbtn} className="back-button">Back</button>
     </div>
   );
 }

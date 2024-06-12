@@ -18,7 +18,7 @@
 
 .login-box {
   background: white;
-  width: 30vw;
+  width: 50vw;
   padding: 40px 60px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -43,13 +43,7 @@
   font-size: 2em;
   animation: fadeIn 1.5s ease-in-out;
 }
-.login-box p{
-  margin-top: 30px;
-  text-align: start;
-}
-.login-box a{
-  text-decoration: none;
-}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -74,7 +68,7 @@
 }
 
 .input-group input {
-  width: 28vw;
+  width: 200%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 5px;

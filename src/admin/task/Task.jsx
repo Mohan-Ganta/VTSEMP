@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaTrash } from "react-icons/fa"; // Font Awesome icon import
 
 import "./Task.css";
+import Navbar from "../navbar/Navbar";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -88,7 +89,9 @@ const App = () => {
   );
 
   return (
-    <div className="App">
+    <>
+    <Navbar />
+    <div className="task-container">
       <header>
         <h1>Tasks</h1>
         <button className="createT-btn" onClick={() => setShowModal(true)}>
@@ -213,6 +216,7 @@ const App = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

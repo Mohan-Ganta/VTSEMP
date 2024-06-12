@@ -1,17 +1,20 @@
 .navbar {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 40px 10px 20px;
+  overflow: hidden;
 }
 
 .navbar-logo img {
+  margin-left: 20px;
   height: 50px; /* Adjust height as needed */
 }
 
 .navbar-links {
   list-style-type: none;
   display: flex;
+  margin-right: 10px;
   gap: 20px;
 }
 
