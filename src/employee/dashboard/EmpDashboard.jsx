@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmpDashboard.css";
-import logo from "C:/Users/DELL/Documents/GitHub/VTSEMP/public/logo-icon.png"
+
 
 function EmpDashboard() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ function EmpDashboard() {
       <header className="dashboard-header">
         <div className="logo">
           <div className="logo-img">
-            <img src={logo} alt="Logo" />
+            <img src="./logo-icon.png" alt="Logo" />
             <h2>VTS Enterprises</h2>
           </div>
           <p>VTS ID : {employee?.empId}</p> {/* Render empId here */}
