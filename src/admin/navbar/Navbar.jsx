@@ -12,7 +12,7 @@ function Navbar() {
     <header className="dashboard-header">
         <div className="logo">
           <img src={logo} alt="Logo" />
-          <h2>VTS Enterprises</h2>
+          <h2>VTS</h2>
         </div>
         <div className="user-info">
           <span className="user-name">ADMIN</span>
