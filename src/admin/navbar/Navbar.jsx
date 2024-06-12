@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css"; // Style file for Navbar
-import logo from "C:/Users/DELL/Documents/GitHub/VTSEMP/public/logo-icon.png"
+
 function Navbar() {
   const navigate = useNavigate()
 
@@ -11,7 +11,7 @@ function Navbar() {
   return (
     <header className="dashboard-header">
         <div className="logo">
-          <img src={logo} alt="Logo" />
+          <img src="./logo-icon.png" alt="Logo" />
           <h2>VTS</h2>
         </div>
         <div className="user-info">
