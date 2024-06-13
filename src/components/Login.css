@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-.form-ctn a{
+.form-ctn a {
   text-decoration: none;
   margin-top: 25px;
 }
@@ -81,7 +81,7 @@ body {
   margin-top: 10px;
   text-align: center;
 }
-.linktoregister{
+.linktoregister {
   text-decoration: none;
   margin-top: 10px;
 }
@@ -119,4 +119,15 @@ body {
   height: auto;
 }
 
+@media only screen and (max-width: 768px) {
+  .login-form {
+    width: 80vw;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .login-form {
+    width: 90vw;
+  }
+}
 /* Style the input field as needed */

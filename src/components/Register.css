@@ -1,8 +1,8 @@
 /* Form container */
 .register-form {
-  max-width: 600px;
+  max-width: 650px;
   margin: 50px auto;
-  padding: 15px 30px;
+  padding: 15px;
   background-color: #f7f7f7;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -38,7 +38,7 @@
 .field input[type="text"],
 .field input[type="password"],
 .field input[type="file"] {
-  width: 250px;
+  width: 80%; /* Adjusted to take full width */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -78,4 +78,11 @@
 
 .link:hover {
   text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+  .elem {
+    min-width: 100%;
+  }
 }
