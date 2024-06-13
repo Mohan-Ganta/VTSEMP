@@ -12,7 +12,7 @@ function Login({ setToken }) {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const {handleEmployeeData}  = useAppContext()
+  const { handleEmployeeData } = useAppContext();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,7 +29,7 @@ function Login({ setToken }) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("logId", response.data.logId);
         localStorage.setItem("email", response.data.email);
-        handleEmployeeData(response.data.email)
+        handleEmployeeData(response.data.email);
         localStorage.setItem(
           "userData",
           JSON.stringify(response.data.userData)
@@ -88,7 +88,7 @@ function Login({ setToken }) {
             Login
           </button>{" "}
           <br />
-          <a href="/register">New User?</a>
+          <Link to="/register">New User?</Link>
         </form>
       </div>
     </div>
