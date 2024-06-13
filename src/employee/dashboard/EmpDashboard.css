@@ -23,12 +23,11 @@ body {
   position: relative;
   z-index: 1000;
 }
-.logo p{
+.logo p {
   margin: 10px 15px;
 }
-.logo-img{
+.logo-img {
   display: flex;
-
 }
 .logo-img > img {
   height: 60px;
@@ -137,8 +136,7 @@ body {
 /* Responsive design */
 @media (max-width: 768px) {
   .dashboard-header {
-    flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
   }
 
   .user-info {

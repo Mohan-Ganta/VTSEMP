@@ -63,7 +63,11 @@ const App = () => {
     <div className="App">
       <header>
         <h1>Tasks</h1>
-        <select onChange={handleFilterChange} value={filter}>
+        <select
+          className="btton-dop"
+          onChange={handleFilterChange}
+          value={filter}
+        >
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="ongoing">Ongoing</option>
@@ -87,6 +91,7 @@ const App = () => {
               <strong>Project Members:</strong> {task.projectMembers.join(", ")}
             </p>
             <select
+              className="btton-dop"
               value={task.status}
               onChange={(e) => handleStatusChange(task.id, e.target.value)}
             >

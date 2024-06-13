@@ -16,8 +16,6 @@ body {
   width: 30px;
 }
 
-
-
 @keyframes logoFadeIn {
   0% {
     opacity: 0;
@@ -107,6 +105,15 @@ body {
   animation: mainFadeIn 1.5s ease-in-out;
 }
 
+.logout-btn {
+  border: rgb(197, 19, 19) 2px solid;
+  color: red;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 5px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
 @keyframes mainFadeIn {
   0% {
     opacity: 0;
@@ -119,7 +126,7 @@ body {
 /* Responsive design */
 @media (max-width: 768px) {
   .dashboard-header {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
 

@@ -77,7 +77,9 @@ const Announcement = () => {
               {announcements.map((ann) => (
                 <div key={ann._id} className="announcement-card">
                   <div className="announcement-content">
-                    <p>{ann.message}</p>
+                    <b>
+                      <p>{ann.message}</p>
+                    </b>
                     <p className="announcement-time">{ann.dateTime}</p>
                   </div>
                   <div className="announcement-actions"></div>

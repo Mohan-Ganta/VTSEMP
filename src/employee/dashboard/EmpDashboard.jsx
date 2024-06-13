@@ -3,7 +3,6 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./EmpDashboard.css";
 
-
 function EmpDashboard() {
   const navigate = useNavigate();
   const [employee, setEmployee] = useState("");
@@ -54,7 +53,7 @@ function EmpDashboard() {
         <div className="logo">
           <div className="logo-img">
             <img src="./logo-icon.png" alt="Logo" />
-            <h2>VTS Enterprises</h2>
+            <h2>VTS </h2>
           </div>
           <p>VTS ID : {employee?.empId}</p> {/* Render empId here */}
         </div>
@@ -69,7 +68,9 @@ function EmpDashboard() {
               <NavLink to="leave">Leave</NavLink>
               <NavLink to="profile">Profile</NavLink>
 
-              <button onClick={handleLogout}>Logout</button>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
             </div>
           </div>
         </div>

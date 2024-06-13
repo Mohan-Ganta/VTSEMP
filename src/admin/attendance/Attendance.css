@@ -5,31 +5,8 @@
 
 .attendance-box {
   background-color: #fff;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.sort-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.sort-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.sort-button.active {
-  background-color: #0056b3;
 }
 
 .sort-form {
@@ -59,6 +36,17 @@
   border-radius: 4px;
 }
 
+.sort-button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
 .attendance-table {
   width: 100%;
   border-collapse: collapse;
@@ -78,4 +66,53 @@
 
 .attendance-table tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .attendance-container {
+    margin: 10px;
+  }
+
+  .attendance-box {
+    padding: 15px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .sort-button {
+    align-self: stretch;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .attendance-table th,
+  .attendance-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .attendance-box {
+    padding: 10px;
+  }
+
+  .sort-button {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .attendance-table th,
+  .attendance-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
 }

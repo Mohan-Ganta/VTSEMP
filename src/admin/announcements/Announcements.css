@@ -107,7 +107,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #c0ccf8;
+  background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -128,7 +128,8 @@
 }
 
 .announcement-time {
-  color: #eeadad;
+  color: #960c5c;
+  padding-top: 20px;
   font-size: 10px; /* Adjusted font size for time and date */
 }
 
